@@ -107,25 +107,20 @@ function App() {
     );
   }
   
-  function Pizza(props) {
+  function Pizza({pizzaObj}) {
     
-   if(props.pizzaObj.soldOut) return null
+   if(pizzaObj.soldOut) return null
 
     return (
       <li>
-        <img src={props.pizzaObj.photoName} alt ={props.pizzaObj.name}/>
-        <h2>${props.pizzaObj.name}</h2>
-        <p>${props.pizzaObj.ingredients}</p>
-        <p>${props.pizzaObj.price}</p>
+        <img src={pizzaObj.photoName} alt ={pizzaObj.name}/>
+        <h2>${pizzaObj.name}</h2>
+        <p>${pizzaObj.ingredients}</p>
+        <p>${pizzaObj.price}</p>
 
       </li>
     );
   }
-
-
-
-
-
   
 }
 function Footer() {
@@ -145,7 +140,7 @@ function Footer() {
     
       {
         isOpen ? (
-          <Order  closeHours = {closeHour}/>
+          <Order  closeHours = {closeHour} openHours = {openHour}/>
         ) : ( 
           <p>We are closed. Please visit us between 11am and 10pm.</p>  
         ) 
@@ -155,10 +150,10 @@ function Footer() {
   );
 }
 
-function Order (props){
+function Order ({closeHours, openHours }){
   return (
     <div className="order">
-            <p>We're open until {props.closeHours}:00. Come visit us or order online!</p>
+            <p>We're open between {openHours}:00 Am and {closeHours}:00 pm. Come visit us or order online!</p>
             <p>{new Date().toLocaleTimeString()}</p>
           </div>
   )
