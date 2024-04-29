@@ -91,6 +91,7 @@ function App() {
     <div className="container">
       <h1>Hello React</h1>
       <Menu />
+      <Footer />
     </div>
   );
   function Menu() {
@@ -107,17 +108,62 @@ function App() {
   }
   
   function Pizza(props) {
-    console.log(props)
+    
+   if(props.pizzaObj.soldOut) return null
+
     return (
-      <>
+      <li>
         <img src={props.pizzaObj.photoName} alt ={props.pizzaObj.name}/>
         <h2>${props.pizzaObj.name}</h2>
         <p>${props.pizzaObj.ingredients}</p>
         <p>${props.pizzaObj.price}</p>
 
-      </>
+      </li>
     );
   }
+
+
+
+
+
+  
 }
+function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 11;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+  console.log(isOpen);
+
+  // if (hour >= openHour && hour <= closeHour) alert("We're currently open!");
+  // else alert("Sorry we're closed");
+
+  // if (!isOpen) return <p>CLOSED</p>;
+
+  return (
+    <footer className="footer">
+    
+      {
+        isOpen ? (
+          <Order  closeHours = {closeHour}/>
+        ) : ( 
+          <p>We are closed. Please visit us between 11am and 10pm.</p>  
+        ) 
+      }
+  
+  </footer>
+  );
+}
+
+function Order (props){
+  return (
+    <div className="order">
+            <p>We're open until {props.closeHours}:00. Come visit us or order online!</p>
+            <p>{new Date().toLocaleTimeString()}</p>
+          </div>
+  )
+}
+
+
 
 export default App;
